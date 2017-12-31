@@ -13,15 +13,24 @@ import java.net.URL;
 public class ServiceHandler {
 
     private static final String FUNFACTAPI_URL = "http://localhost:60001/random";
+    private static final String COMICAPI_URL = "http://localhost:60002/getcomic";
 
     public String getFunfact() {
+        return getResource(FUNFACTAPI_URL);
+    }
+
+    public String getComic() {
+        return getResource(COMICAPI_URL);
+    }
+
+    private String getResource(String URI) {
 
         URL url;
         HttpURLConnection con;
         BufferedReader in;
         String responseString;
         try {
-            url = new URL(FUNFACTAPI_URL);
+            url = new URL(URI);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestProperty("User-Agent", "Mozilla/5.0");
             in = new BufferedReader(new InputStreamReader(con.getInputStream()));

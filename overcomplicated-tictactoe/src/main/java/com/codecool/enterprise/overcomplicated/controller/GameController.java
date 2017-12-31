@@ -43,7 +43,7 @@ public class GameController {
     @GetMapping(value = "/game")
     public String gameView(@ModelAttribute("player") Player player, Model model) {
         model.addAttribute("funfact", serviceHandler.getFunfact());
-        model.addAttribute("comic_uri", "https://imgs.xkcd.com/comics/bad_code.png");
+        model.addAttribute("comic_uri", serviceHandler.getComic());
         return "game";
     }
 
