@@ -41,7 +41,13 @@ public class GameController {
     }
 
     @GetMapping(value = "/game")
-    public String gameView(@ModelAttribute("player") Player player, Model model) {
+    public String gameView(@ModelAttribute("player") Player player,
+                           @ModelAttribute TictactoeGame game,
+                           Model model) {
+
+        if (game.isOver()) {
+            model.addAttribute("endgamemsg", game.getEndGameMsg());
+        }
         model.addAttribute("funfact", serviceHandler.getFunfact());
         model.addAttribute("comic_uri", serviceHandler.getComic());
         return "game";
@@ -52,14 +58,22 @@ public class GameController {
                            @ModelAttribute("move") int move,
                            @ModelAttribute("game") TictactoeGame game) {
 
-        game.movePlayer(move);
-        System.out.println("Player moved " + move);
+        if (game.getGameState()[move] == '-') {
+            game.movePlayer(move);
+            System.out.println("Player moved " + move);
 
-        int aiMoveRecommendation = serviceHandler.getAIMove(game.getGameState());
+            int aiMoveRecommendation = serviceHandler.getAIMove(game.getGameState());
 
-        game.moveAI(aiMoveRecommendation);
+            game.moveAI(aiMoveRecommendation);
 
-        System.out.println("Gamestate: " + new String(game.getGameState()));
+            System.out.println("Gamestate: " + new String(game.getGameState()));
+        }
+        return "redirect:/game";
+    }
+
+    @GetMapping(value = "/restart-game")
+    public String restartGame(Model model) {
+        model.addAttribute("game", new TictactoeGame());
         return "redirect:/game";
     }
 }

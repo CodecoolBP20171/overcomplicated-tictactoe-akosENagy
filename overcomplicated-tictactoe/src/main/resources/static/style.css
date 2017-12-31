@@ -43,3 +43,8 @@ footer {
 footer img {
     filter: invert(100%) contrast(0.45);
 }
+
+.gameover-container {
+    text-align: center;
+    padding-bottom: 20px;
+}

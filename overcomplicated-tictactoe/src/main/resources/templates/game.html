@@ -45,6 +45,10 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+                <div th:if="${game.isOver()}" class="gameover-container">
+                    <h2 th:text="${game.getEndGameMsg()}"></h2>
+                    <a href="/restart-game" class="btn btn-default">Start a new game!</a>
+                </div>
                 <div class="container-fluid game-container">
                     <th:block th:each="i: ${#numbers.sequence(0, 2)}">
                         <div class="row">
