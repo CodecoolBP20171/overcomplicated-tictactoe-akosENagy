@@ -14,6 +14,11 @@ public class ServiceHandler {
 
     private static final String FUNFACTAPI_URL = "http://localhost:60001/random";
     private static final String COMICAPI_URL = "http://localhost:60002/getcomic";
+    private static final String AVATARAPI_URL = "http://localhost:60003/getavatar";
+
+    public String getAvatar(String username) {
+        return getResource(AVATARAPI_URL + "?username=" + username);
+    }
 
     public String getFunfact() {
         return getResource(FUNFACTAPI_URL);

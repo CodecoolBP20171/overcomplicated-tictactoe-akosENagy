@@ -26,8 +26,8 @@ public class GameController {
     }
 
     @ModelAttribute("avatar_uri")
-    public String getAvatarUri() {
-        return "https://robohash.org/codecool";
+    public String getAvatarUri(@ModelAttribute Player player) {
+        return serviceHandler.getAvatar(player.getUserName());
     }
 
     @GetMapping(value = "/")
