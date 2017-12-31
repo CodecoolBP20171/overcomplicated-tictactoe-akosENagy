@@ -15,6 +15,7 @@ public class ServiceHandler {
     private static final String FUNFACTAPI_URL = "http://localhost:60001/random";
     private static final String COMICAPI_URL = "http://localhost:60002/getcomic";
     private static final String AVATARAPI_URL = "http://localhost:60003/getavatar";
+    private static final String AIAPI_URL = "http://localhost:60004/aimove";
 
     public String getAvatar(String username) {
         return getResource(AVATARAPI_URL + "?username=" + username);
@@ -26,6 +27,17 @@ public class ServiceHandler {
 
     public String getComic() {
         return getResource(COMICAPI_URL);
+    }
+
+    public int getAIMove(char[] gameState) {
+        if (new String(gameState).contains("-")) {
+            String aimove = getResource(AIAPI_URL + "?gamestate=" + new String(gameState));
+            if (aimove != null) {
+                return Integer.valueOf(aimove);
+            }
+        }
+
+        return -1;
     }
 
     private String getResource(String URI) {
@@ -48,6 +60,5 @@ public class ServiceHandler {
         System.out.println(responseString);
         return responseString;
     }
-
 
 }

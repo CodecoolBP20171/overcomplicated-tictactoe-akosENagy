@@ -48,8 +48,18 @@ public class GameController {
     }
 
     @GetMapping(value = "/game-move")
-    public String gameMove(@ModelAttribute("player") Player player, @ModelAttribute("move") int move) {
+    public String gameMove(@ModelAttribute("player") Player player,
+                           @ModelAttribute("move") int move,
+                           @ModelAttribute("game") TictactoeGame game) {
+
+        game.movePlayer(move);
         System.out.println("Player moved " + move);
+
+        int aiMoveRecommendation = serviceHandler.getAIMove(game.getGameState());
+
+        game.moveAI(aiMoveRecommendation);
+
+        System.out.println("Gamestate: " + new String(game.getGameState()));
         return "redirect:/game";
     }
 }
